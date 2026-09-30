@@ -1,0 +1,147 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\User> wsl
+user@DESKTOP-RIAR5TT:/mnt/c/Users/User$ mkdir -p ~/parallel_lab
+user@DESKTOP-RIAR5TT:/mnt/c/Users/User$ cd ~/parallel_lab
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc --version
+gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano thread1.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc thread1.c -o thread1 -pthread
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./thread1
+Hello from the thread!
+Main thread finished.
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano thread2.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc thread2.c -o thread2 -pthread
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./thread2
+Thread 1 is running
+Thread 4 is running
+Thread 2 is running
+Thread 3 is running
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano thread_sum.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc thread_sum.c -o thread_sum -pthread
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./thread_sum
+Thread 1 partial sum = 30
+Thread 2 partial sum = 70
+Thread 3 partial sum = 110
+Thread 4 partial sum = 150
+Total sum = 360
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano race.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc race.c -o race -pthread
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./race
+Expected counter = 400000
+Actual counter = 150011
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano mutex.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc mutex.c -o mutex -pthread
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./mutex
+Expected counter = 400000
+Actual counter = 400000
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano omp1.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc omp1.c -o omp1 -fopenmp
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp1
+Hello from thread 2 of 16
+Hello from thread 6 of 16
+Hello from thread 15 of 16
+Hello from thread 3 of 16
+Hello from thread 12 of 16
+Hello from thread 11 of 16
+Hello from thread 8 of 16
+Hello from thread 10 of 16
+Hello from thread 4 of 16
+Hello from thread 5 of 16
+Hello from thread 0 of 16
+Hello from thread 9 of 16
+Hello from thread 14 of 16
+Hello from thread 13 of 16
+Hello from thread 1 of 16
+Hello from thread 7 of 16
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano omp_sum.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc omp_sum.c -o omp_sum -fopenmp
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_sum
+Total sum = 360
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano omp_race.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc omp_race.c -o omp_race -fopenmp
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_race
+Expected counter = 400000
+Actual counter = 100112
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano omp_critical.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc omp_critical.c -o omp_critical -fopenmp
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_critical
+Expected counter = 400000
+Actual counter = 400000
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano omp_barrier.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc omp_barrier.c -o omp_barrier -fopenmp
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_barrier
+Thread 3: Stage 1
+Thread 0: Stage 1
+Thread 1: Stage 1
+Thread 2: Stage 1
+Thread 1: Stage 2
+Thread 2: Stage 2
+Thread 3: Stage 2
+Thread 0: Stage 2
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano sequential.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc sequential.c -o sequential
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./sequential
+Sequential Sum = 499999999500.00
+Sequential Time = 1.845448 seconds
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano pthread_perf.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc pthread_perf.c -o pthread_perf -pthread
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./pthread_perf 1
+Threads = 1
+Sum = 499999999500.00
+Time = 1.812432 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./pthread_perf 2
+Threads = 2
+Sum = 499999999500.00
+Time = 3.604127 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./pthread_perf 4
+Threads = 4
+Sum = 499999999500.00
+Time = 4.572821 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./pthread_perf 6
+Threads = 6
+Sum = 499999999500.00
+Time = 5.266353 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./pthread_perf 16
+Threads = 16
+Sum = 499999999500.00
+Time = 10.175397 seconds
+
+user@DESKTOP-RIAR5TT:~/parallel_lab$ nano omp_perf.c
+user@DESKTOP-RIAR5TT:~/parallel_lab$ gcc omp_perf.c -o omp_perf -fopenmp
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_perf 1
+Threads = 1
+Sum = 499999999500.00
+Time = 1.828267 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_perf 2
+Threads = 2
+Sum = 499999999500.00
+Time = 0.940907 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_perf 4
+Threads = 4
+Sum = 499999999500.00
+Time = 0.483794 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_perf 6
+Threads = 6
+Sum = 499999999500.00
+Time = 0.356250 seconds
+user@DESKTOP-RIAR5TT:~/parallel_lab$ ./omp_perf 16
+Threads = 16
+Sum = 499999999500.00
+Time = 0.209669 seconds

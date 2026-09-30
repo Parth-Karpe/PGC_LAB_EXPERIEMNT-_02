@@ -1,0 +1,16 @@
+{
+  "experiment_name": "Multithreaded Programming with Pthreads and OpenMP",
+  "experiment_number": "02",
+  "computational_workload": {
+    "problem_type": "Large-scale arithmetic reduction sum",
+    "total_iterations_N": 1000000000,
+    "element_formula": "sum += (double)i * 0.000001",
+    "mathematical_target_sum": 499999999500.00
+  },
+  "hardware_environment": {
+    "os": "Ubuntu 24.04 LTS on Windows Subsystem for Linux (WSL2)",
+    "compiler": "GCC 15.2.0 (Ubuntu 15.2.0-16ubuntu1)",
+    "threading_technologies": ["POSIX Threads (Pthreads)", "OpenMP 4.5/5.0"]
+  },
+  "thread_configurations": [1, 2, 4, 6, 16]
+}
